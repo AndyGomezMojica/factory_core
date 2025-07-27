@@ -42,4 +42,12 @@ public class RoleAdapter {
 
     }
 
+    public RoleModel modifiedRoleStatus(RoleModel existentRole, Boolean status){
+
+        existentRole.setRoleIsActive(status);
+        existentRole.setRoleModifiedAt(new Date());
+
+        return existentRole;
+    }
+
 }
