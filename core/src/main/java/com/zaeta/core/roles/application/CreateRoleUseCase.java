@@ -27,13 +27,11 @@ public class CreateRoleUseCase {
         genericValidation.validateNotNull(input, "Rol no puede ser nulo");
         genericValidation.validateNotEmpty(input.getRoleName(), "Nombre del rol no debe estar vacio");
 
-        String roleName = input.getRoleName().toUpperCase();
-
-        if (repository.existsByRoleName(roleName)){
+        if (repository.existsByRoleName(input.getRoleName().toUpperCase())){
             genericValidation.errorValidation("Rol existente en la db, no se puede duplicar");
         }
 
-        log.info("Rol {}, creado satisfactoriamente", input.getRoleName());
+        log.info("Rol {}, creado satisfactoriamente", input.getRoleName().toUpperCase());
         return repository.save(adapter.inputToModel(input));
 
     }
