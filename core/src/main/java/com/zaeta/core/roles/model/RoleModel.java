@@ -34,6 +34,6 @@ public class RoleModel {
     private Date roleModifiedAt;
 
     @Column(name = "role_is_active")
-    private Boolean rolesIsActive = true;
+    private Boolean roleIsActive = true;
 
 }
