@@ -16,8 +16,8 @@ public class GetAllRolesUseCase {
     RoleRepository repository;
 
     public List<RoleModel> getAllRoles(){
-        log.info("Se han traido todos los roles existentes");
-        return repository.findAll();
+        log.info("Se han traido todos los roles existentes activos");
+        return repository.findByRoleIsActive(true);
     }
 
 }

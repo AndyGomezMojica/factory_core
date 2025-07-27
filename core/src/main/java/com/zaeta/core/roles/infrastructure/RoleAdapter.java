@@ -22,7 +22,7 @@ public class RoleAdapter {
                 .roleName(input.getRoleName().toUpperCase())
                 .roleDescription(input.getRoleDescription())
                 .roleCreatedAt(new Date())
-                .rolesIsActive(true)
+                .roleIsActive(true)
                 .build();
     }
 
