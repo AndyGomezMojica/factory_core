@@ -28,4 +28,11 @@ public class AreaAdapter {
 
         return existentArea;
     }
+
+    public AreaModel modifiedAreaStatus(AreaModel existentArea, Boolean status){
+        existentArea.setAreaIsActive(status);
+        existentArea.setAreaModifiedAt(new Date());
+
+        return existentArea;
+    }
 }
