@@ -19,6 +19,7 @@ public class CreateEmployeeInput {
     private String employeeLastName;
     private String employeeBirthPlace;
     private String employeeAddress;
+    private String employeeEmail;
     private String employeeState;
     private Integer employeeZipCode;
     private EmployeeGender employeeGender;

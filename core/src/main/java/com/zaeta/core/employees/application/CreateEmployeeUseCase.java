@@ -34,13 +34,21 @@ public class CreateEmployeeUseCase {
             genericValidation.errorValidation("Ya existe un empleado con el curp: " + input.getEmployeeCurp().toUpperCase());
         }
 
+        genericValidation.validateLengthString("CURP",input.getEmployeeCurp(), 18);
+
         if (repository.existsByEmployeeRfc(input.getEmployeeRfc().toUpperCase())){
             genericValidation.errorValidation("Ya existe un empleado con el rfc: " + input.getEmployeeRfc().toUpperCase());
         }
 
+        genericValidation.validateLengthString("RFC", input.getEmployeeRfc(),13);
+
         if (repository.existsByEmployeeNss(input.getEmployeeNss().toUpperCase())){
             genericValidation.errorValidation("Ya existe un empleado con el nss: " + input.getEmployeeNss().toUpperCase());
         }
+
+        genericValidation.validateLengthString("NSS", input.getEmployeeNss(), 11);
+
+        genericValidation.validateLengthString("CP", input.getEmployeeZipCode().toString(), 5);
 
         log.info("El empleado: {} ha sido creado exitosamente", input.getEmployeeName());
         return repository.save(adapter.createInputToModel(input));

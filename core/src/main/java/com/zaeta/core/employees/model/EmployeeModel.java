@@ -1,6 +1,5 @@
 package com.zaeta.core.employees.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.zaeta.core.areas.model.AreaModel;
 import com.zaeta.core.employees.model.Enums.EmployeeGender;
@@ -11,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.util.Date;
 import java.util.List;
 
@@ -38,6 +38,10 @@ public class EmployeeModel {
 
     @Column(name = "employee_address")
     private String employeeAddress;
+
+    @Email
+    @Column(name = "employee_email")
+    private String employeeEmail;
 
     @Column(name = "employee_state")
     private String employeeState;
