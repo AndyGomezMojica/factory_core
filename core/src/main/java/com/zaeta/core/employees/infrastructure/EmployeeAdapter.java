@@ -65,6 +65,7 @@ public class EmployeeAdapter {
                 .employeeRfc(input.getEmployeeRfc().toUpperCase())
                 .employeeNss(input.getEmployeeNss().toUpperCase())
                 .employeePhone(input.getEmployeePhone())
+                .employeeEmail(input.getEmployeeEmail())
                 .employeeCreatedAt(new Date())
                 .employeeIsActive(true)
                 .area(existentArea)

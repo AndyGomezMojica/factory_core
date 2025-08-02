@@ -25,7 +25,7 @@ public class GenericValidation {
         throw new IllegalArgumentException(errorMessage);
     }
 
-    public void validateLengthString(String value, Integer length){
+    public void validateLengthString(String fieldName, String value, Integer length){
 
         validateNotNull(value, "El valor no puede ser nulo");
         validateNotEmpty(value, " El valor no puede estar vacio");
@@ -36,7 +36,7 @@ public class GenericValidation {
         }
 
         if (value.length() != length){
-            errorValidation("El tamaño del valor (" + value.length() + ") no coincide con el requerido (" + length + ")");
+            errorValidation("El tamaño de " + fieldName +  " :(" + value.length() + ") no coincide con el tamaño requerido :(" + length + ")");
         }
     }
 }
