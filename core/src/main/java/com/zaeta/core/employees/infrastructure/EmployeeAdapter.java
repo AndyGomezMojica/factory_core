@@ -5,6 +5,7 @@ import com.zaeta.core.areas.model.repository.AreaRepository;
 import com.zaeta.core.employees.model.EmployeeModel;
 import com.zaeta.core.employees.web.responses.input.CreateEmployeeInput;
 import com.zaeta.core.employees.web.responses.output.GetAllEmployeesOutput;
+import com.zaeta.core.employees.web.responses.output.GetEmployeesOutput;
 import com.zaeta.core.roles.model.RoleModel;
 import com.zaeta.core.roles.model.repository.RoleRepository;
 import com.zaeta.core.utils.GenericValidation.GenericValidation;
@@ -67,6 +68,28 @@ public class EmployeeAdapter {
 
     public GetAllEmployeesOutput modelToOutput(EmployeeModel employeeModel){
         return GetAllEmployeesOutput.builder()
+                .employeeId(employeeModel.getEmployeeId())
+                .employeeName(employeeModel.getEmployeeName())
+                .employeeLastName(employeeModel.getEmployeeLastName())
+                .employeeBirthPlace(employeeModel.getEmployeeBirthPlace())
+                .employeeAddress(employeeModel.getEmployeeAddress())
+                .employeeState(employeeModel.getEmployeeState())
+                .employeeZipCode(employeeModel.getEmployeeZipCode())
+                .employeeGender(employeeModel.getEmployeeGender())
+                .employee_marital_status(employeeModel.getEmployee_marital_status())
+                .employeePhone(employeeModel.getEmployeePhone())
+                .employeeCurp(employeeModel.getEmployeeCurp())
+                .employeeRfc(employeeModel.getEmployeeRfc())
+                .employeeNss(employeeModel.getEmployeeNss())
+                .areaName(employeeModel.getArea().getAreaName())
+                .rolesName(employeeModel.getRoles().stream()
+                        .map(RoleModel::getRoleName)
+                        .collect(Collectors.toList()))
+                .build();
+    }
+
+    public GetEmployeesOutput modelToGetOutput(EmployeeModel employeeModel){
+        return GetEmployeesOutput.builder()
                 .employeeId(employeeModel.getEmployeeId())
                 .employeeName(employeeModel.getEmployeeName())
                 .employeeLastName(employeeModel.getEmployeeLastName())
