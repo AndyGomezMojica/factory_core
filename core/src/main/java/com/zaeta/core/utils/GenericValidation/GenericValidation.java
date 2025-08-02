@@ -10,15 +10,13 @@ public class GenericValidation {
 
     public void validateNotNull(Object object, String errorMessage){
         if (object == null){
-            log.error(errorMessage);
-            throw new IllegalArgumentException(errorMessage);
+            errorValidation(errorMessage);
         }
     }
 
     public void validateNotEmpty(String value, String errorMessage){
         if (value.isEmpty() || value.trim().isEmpty()){
-            log.error(errorMessage);
-            throw new IllegalArgumentException(errorMessage);
+            errorValidation(errorMessage);
         }
     }
 
