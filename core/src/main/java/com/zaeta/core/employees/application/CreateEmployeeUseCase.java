@@ -27,6 +27,8 @@ public class CreateEmployeeUseCase {
         genericValidation.validateNotNull(input, "El objeto empleado no puede ser nulo");
         genericValidation.validateNotEmpty(input.getEmployeeName(), " El nombre no puede estar vacio");
         genericValidation.validateNotEmpty(input.getEmployeeCurp(), "El curp no puede estar vacio");
+        genericValidation.validateNotEmpty(input.getEmployeeRfc(), " El rfc no puede estar vacio");
+        genericValidation.validateNotEmpty(input.getEmployeeNss(), " El nss no puede estar vacio");
 
         if (repository.existsByEmployeeCurp(input.getEmployeeCurp().toUpperCase())){
             genericValidation.errorValidation("Ya existe un empleado con el curp: " + input.getEmployeeCurp().toUpperCase());
