@@ -24,4 +24,19 @@ public class GenericValidation {
         log.error(errorMessage);
         throw new IllegalArgumentException(errorMessage);
     }
+
+    public void validateLengthString(String value, Integer length){
+
+        validateNotNull(value, "El valor no puede ser nulo");
+        validateNotEmpty(value, " El valor no puede estar vacio");
+        validateNotNull(length, "El tamaño no puede ser nulo");
+
+        if (length <= 0){
+            errorValidation("El tamaño debe ser mayor a cero");
+        }
+
+        if (value.length() != length){
+            errorValidation("El tamaño del valor (" + value.length() + ") no coincide con el requerido (" + length + ")");
+        }
+    }
 }

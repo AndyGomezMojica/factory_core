@@ -28,5 +28,6 @@ public class GetEmployeesOutput {
     private String employeeNss;
     private String employeePhone;
     private String areaName;
+    private Boolean employeeIsActive;
     private List<String> rolesName;
 }

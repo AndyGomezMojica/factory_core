@@ -3,6 +3,7 @@ package com.zaeta.core.employees.infrastructure;
 import com.zaeta.core.areas.model.AreaModel;
 import com.zaeta.core.areas.model.repository.AreaRepository;
 import com.zaeta.core.employees.model.EmployeeModel;
+import com.zaeta.core.employees.model.repository.EmployeeRepository;
 import com.zaeta.core.employees.web.responses.input.CreateEmployeeInput;
 import com.zaeta.core.employees.web.responses.input.ModifiedEmployeeInput;
 import com.zaeta.core.employees.web.responses.output.GetAllEmployeesOutput;
@@ -30,6 +31,9 @@ public class EmployeeAdapter {
 
     @Autowired
     RoleRepository roleRepository;
+
+    @Autowired
+    EmployeeRepository employeeRepository;
 
     public EmployeeModel createInputToModel(CreateEmployeeInput input){
 
@@ -68,7 +72,7 @@ public class EmployeeAdapter {
                 .build();
     }
 
-    public GetAllEmployeesOutput modelToOutput(EmployeeModel employeeModel){
+    public GetAllEmployeesOutput  modelToOutput(EmployeeModel employeeModel){
         return GetAllEmployeesOutput.builder()
                 .employeeId(employeeModel.getEmployeeId())
                 .employeeName(employeeModel.getEmployeeName())
@@ -105,6 +109,7 @@ public class EmployeeAdapter {
                 .employeeCurp(employeeModel.getEmployeeCurp())
                 .employeeRfc(employeeModel.getEmployeeRfc())
                 .employeeNss(employeeModel.getEmployeeNss())
+                .employeeIsActive(employeeModel.getEmployeeIsActive())
                 .areaName(employeeModel.getArea().getAreaName())
                 .rolesName(employeeModel.getRoles().stream()
                         .map(RoleModel::getRoleName)
@@ -144,5 +149,14 @@ public class EmployeeAdapter {
         existentEmployee.setRoles(roles);
 
         return existentEmployee;
+    }
+
+    public EmployeeModel modifiedEmployeeStatus(EmployeeModel existentEmployee, Boolean isActive){
+
+        existentEmployee.setEmployeeModifiedAt(new Date());
+        existentEmployee.setEmployeeIsActive(isActive);
+
+        return existentEmployee;
+
     }
 }
