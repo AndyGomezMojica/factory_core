@@ -1,5 +1,8 @@
 package com.zaeta.core.employees.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.zaeta.core.areas.model.AreaModel;
 import com.zaeta.core.employees.model.Enums.EmployeeGender;
 import com.zaeta.core.roles.model.RoleModel;
 import lombok.AllArgsConstructor;
@@ -9,6 +12,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -48,7 +52,7 @@ public class EmployeeModel {
     @Column(name = "employee_marital_status")
     private String employee_marital_status;
 
-    @Column(name = "employee_rfc")
+    @Column(name = "employee_curp")
     private String employeeCurp;
 
     @Column(name = "employee_rfc")
@@ -68,5 +72,19 @@ public class EmployeeModel {
 
     @Column(name = "employee_is_active")
     private Boolean employeeIsActive = true;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "area_id", nullable = false)
+    @JsonManagedReference
+    private AreaModel area;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "employee_roles", // tabla intermedia
+            joinColumns = @JoinColumn(name = "employee_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    @JsonManagedReference
+    private List<RoleModel> roles;
 
 }

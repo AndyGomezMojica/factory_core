@@ -1,5 +1,8 @@
 package com.zaeta.core.areas.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.zaeta.core.employees.model.EmployeeModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -7,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -35,5 +39,9 @@ public class AreaModel {
 
     @Column(name = "area_is_active")
     private Boolean areaIsActive = true;
+
+    @OneToMany(mappedBy = "area", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonBackReference
+    private List<EmployeeModel> employees;
 
 }

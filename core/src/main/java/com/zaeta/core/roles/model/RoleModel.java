@@ -1,5 +1,7 @@
 package com.zaeta.core.roles.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.zaeta.core.employees.model.EmployeeModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -7,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -35,5 +38,9 @@ public class RoleModel {
 
     @Column(name = "role_is_active")
     private Boolean roleIsActive = true;
+
+    @ManyToMany(mappedBy = "roles")
+    @JsonBackReference
+    private List<EmployeeModel> employees;
 
 }

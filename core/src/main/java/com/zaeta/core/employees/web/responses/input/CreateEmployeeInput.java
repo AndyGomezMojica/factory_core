@@ -7,12 +7,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
+import java.util.List;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class EmployeeCreateInput {
+public class CreateEmployeeInput {
 
     private String employeeName;
     private String employeeLastName;
@@ -25,7 +26,7 @@ public class EmployeeCreateInput {
     private String employeeCurp;
     private String employeeRfc;
     private String employeeNss;
-
-    @Column(name = "employee_phone")
     private String employeePhone;
+    private Long areaId;
+    private List<Long> rolesIds;
 }
