@@ -4,6 +4,7 @@ import com.zaeta.core.areas.model.AreaModel;
 import com.zaeta.core.areas.model.repository.AreaRepository;
 import com.zaeta.core.employees.model.EmployeeModel;
 import com.zaeta.core.employees.web.responses.input.CreateEmployeeInput;
+import com.zaeta.core.employees.web.responses.input.ModifiedEmployeeInput;
 import com.zaeta.core.employees.web.responses.output.GetAllEmployeesOutput;
 import com.zaeta.core.employees.web.responses.output.GetEmployeesOutput;
 import com.zaeta.core.roles.model.RoleModel;
@@ -12,6 +13,7 @@ import com.zaeta.core.utils.GenericValidation.GenericValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -108,5 +110,39 @@ public class EmployeeAdapter {
                         .map(RoleModel::getRoleName)
                         .collect(Collectors.toList()))
                 .build();
+    }
+
+    public EmployeeModel modifiedInputToModel(EmployeeModel existentEmployee, ModifiedEmployeeInput input){
+
+        AreaModel existentArea = areaRepository.findById(input.getAreaId())
+                .orElseThrow(() -> new EntityNotFoundException("El id del area no existe en la DB"));
+
+        List<RoleModel> roles = new ArrayList<>();
+
+        if (input.getRolesIds() != null && !input.getRolesIds().isEmpty()){
+            roles = roleRepository.findAllById(input.getRolesIds());
+            if (roles.size() != input.getRolesIds().size()){
+                genericValidation.errorValidation("Algunos roles no existen en la db");
+            }
+        }
+
+        existentEmployee.setEmployeeName(input.getEmployeeName().toUpperCase());
+        existentEmployee.setEmployeeLastName(input.getEmployeeLastName().toUpperCase());
+        existentEmployee.setEmployeeBirthPlace(input.getEmployeeBirthPlace());
+        existentEmployee.setEmployeeAddress(input.getEmployeeAddress());
+        existentEmployee.setEmployeeState(input.getEmployeeState());
+        existentEmployee.setEmployeeZipCode(input.getEmployeeZipCode());
+        existentEmployee.setEmployeeGender(input.getEmployeeGender());
+        existentEmployee.setEmployee_marital_status(input.getEmployee_marital_status().toUpperCase());
+        existentEmployee.setEmployeeCurp(input.getEmployeeCurp().toUpperCase());
+        existentEmployee.setEmployeeRfc(input.getEmployeeRfc().toUpperCase());
+        existentEmployee.setEmployeeNss(input.getEmployeeNss().toUpperCase());
+        existentEmployee.setEmployeePhone(input.getEmployeePhone());
+        existentEmployee.setEmployeeIsActive(input.getEmployeeIsActive());
+        existentEmployee.setEmployeeModifiedAt(new Date());
+        existentEmployee.setArea(existentArea);
+        existentEmployee.setRoles(roles);
+
+        return existentEmployee;
     }
 }
