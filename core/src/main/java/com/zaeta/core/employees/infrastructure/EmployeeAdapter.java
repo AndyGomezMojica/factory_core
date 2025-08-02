@@ -80,7 +80,7 @@ public class EmployeeAdapter {
                 .employeeCurp(employeeModel.getEmployeeCurp())
                 .employeeRfc(employeeModel.getEmployeeRfc())
                 .employeeNss(employeeModel.getEmployeeNss())
-                .areaName(employeeModel.getArea().getAreaName()) // debes asegurar que el fetch fue hecho
+                .areaName(employeeModel.getArea().getAreaName())
                 .rolesName(employeeModel.getRoles().stream()
                         .map(RoleModel::getRoleName)
                         .collect(Collectors.toList()))
