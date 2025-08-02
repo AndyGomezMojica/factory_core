@@ -4,6 +4,7 @@ import com.zaeta.core.areas.model.AreaModel;
 import com.zaeta.core.areas.model.repository.AreaRepository;
 import com.zaeta.core.employees.model.EmployeeModel;
 import com.zaeta.core.employees.web.responses.input.CreateEmployeeInput;
+import com.zaeta.core.employees.web.responses.output.GetAllEmployeesOutput;
 import com.zaeta.core.roles.model.RoleModel;
 import com.zaeta.core.roles.model.repository.RoleRepository;
 import com.zaeta.core.utils.GenericValidation.GenericValidation;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeAdapter {
@@ -60,6 +62,28 @@ public class EmployeeAdapter {
                 .employeeIsActive(true)
                 .area(existentArea)
                 .roles(roles)
+                .build();
+    }
+
+    public GetAllEmployeesOutput modelToOutput(EmployeeModel employeeModel){
+        return GetAllEmployeesOutput.builder()
+                .employeeId(employeeModel.getEmployeeId())
+                .employeeName(employeeModel.getEmployeeName())
+                .employeeLastName(employeeModel.getEmployeeLastName())
+                .employeeBirthPlace(employeeModel.getEmployeeBirthPlace())
+                .employeeAddress(employeeModel.getEmployeeAddress())
+                .employeeState(employeeModel.getEmployeeState())
+                .employeeZipCode(employeeModel.getEmployeeZipCode())
+                .employeeGender(employeeModel.getEmployeeGender())
+                .employee_marital_status(employeeModel.getEmployee_marital_status())
+                .employeePhone(employeeModel.getEmployeePhone())
+                .employeeCurp(employeeModel.getEmployeeCurp())
+                .employeeRfc(employeeModel.getEmployeeRfc())
+                .employeeNss(employeeModel.getEmployeeNss())
+                .areaName(employeeModel.getArea().getAreaName()) // debes asegurar que el fetch fue hecho
+                .rolesName(employeeModel.getRoles().stream()
+                        .map(RoleModel::getRoleName)
+                        .collect(Collectors.toList()))
                 .build();
     }
 }
