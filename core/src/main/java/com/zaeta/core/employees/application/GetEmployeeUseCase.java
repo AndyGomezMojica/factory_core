@@ -3,17 +3,16 @@ package com.zaeta.core.employees.application;
 import com.zaeta.core.employees.infrastructure.EmployeeAdapter;
 import com.zaeta.core.employees.model.EmployeeModel;
 import com.zaeta.core.employees.model.repository.EmployeeRepository;
-import com.zaeta.core.employees.web.responses.output.GetAllEmployeesOutput;
+import com.zaeta.core.employees.web.responses.output.GetEmployeesOutput;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import javax.persistence.EntityNotFoundException;
 
 @Slf4j
 @Service
-public class GetAllEmployeeUseCase {
+public class GetEmployeeUseCase {
 
     @Autowired
     EmployeeRepository repository;
@@ -21,12 +20,12 @@ public class GetAllEmployeeUseCase {
     @Autowired
     EmployeeAdapter adapter;
 
-    public List<GetAllEmployeesOutput> getAllEmployeesActives(){
-        log.info("Se han traido todos los empleados activos");
-        return repository.findByEmployeeIsActive(true)
-                .stream()
-                .map(adapter::modelToOutput)
-                .collect(Collectors.toList());
+    public GetEmployeesOutput getEmployeeById(Long id){
+        log.info("El empleado con id: {}, traido exitosamente");
+        EmployeeModel existentEmployee = repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("El id no existe en la DB"));
+
+        return adapter.modelToGetOutput(existentEmployee);
     }
 
 }
